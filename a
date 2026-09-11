@@ -2,3 +2,12 @@ IF SUSER_ID(N'NT AUTHORITY\SYSTEM') IS NULL
     CREATE LOGIN [NT AUTHORITY\SYSTEM] FROM WINDOWS;
 
 GRANT VIEW ANY DATABASE TO [NT AUTHORITY\SYSTEM];
+
+
+Get-ItemProperty `
+  HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*, `
+  HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* `
+  -ErrorAction SilentlyContinue |
+Where-Object { $_.DisplayName } |
+Select-Object DisplayName, DisplayVersion, Publisher, InstallDate, InstallLocation |
+Sort-Object DisplayName
