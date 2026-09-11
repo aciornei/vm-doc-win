@@ -11,3 +11,12 @@ Get-ItemProperty `
 Where-Object { $_.DisplayName } |
 Select-Object DisplayName, DisplayVersion, Publisher, InstallDate, InstallLocation |
 Sort-Object DisplayName
+
+
+New-NetFirewallRule `
+  -DisplayName "VM-Doc Agent 9078" `
+  -Direction Inbound `
+  -Protocol TCP `
+  -LocalPort 9078 `
+  -RemoteAddress 172.20.0.0/16 `
+  -Action Allow
